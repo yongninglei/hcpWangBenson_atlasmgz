@@ -1,16 +1,16 @@
 #!/bin/bash -l
-
+# IB 28/10/2022
 
 export SUBJID=${1}
 export SESS=${2}
-export WORK_DIR=${3} # e.g /CBI/Users/jankurzawski/data/Retinotopy_NYU_3T/
+export WORK_DIR=${3} # e.g /CBI/Users/jankurzawski/data/Retinotopy_NYU_3T
 export SUBJECTS_DIR=${WORK_DIR}/derivatives/freesurfer
 export LABEL_DIR=${SUBJECTS_DIR}/sub-${SUBJID}/label
 
 git clone https://github.com/WinawerLab/atlasmgz.git $SUBJECTS_DIR/fsaverage/atlasmgz
-
-export DO_IMPORT_WANG=0 # Only need to run once, to bring atlas into fsaverage space
-export DO_IMPORT_GLASSER=0 # Only need to run once, to bring atlas into fsaverage space
+git pull $SUBJECTS_DIR/fsaverage/atlasmgz
+export DO_IMPORT_WANG=1 # Only need to run once, to bring atlas into fsaverage space
+export DO_IMPORT_GLASSER=1 # Only need to run once, to bring atlas into fsaverage space
 
 export DO_IMPORT_NATIVESPACE=1
 export DO_CONVERT_ATLAS=1
@@ -31,7 +31,7 @@ for hemi in lh rh; do
 		--surf fsaverage $hemi inflated;
 	done; 
 
-	mris_label2annot --s fsaverage --h ${hemi} --ctab {SUBJECTS_DIR}/atlasmgz/Wang2015_ColorLUT.txt --a Wang2015 \
+	mris_label2annot --s fsaverage --h ${hemi} --ctab ${SUBJECTS_DIR}/fsaverage/atlasmgz/Wang2015_ColorLUT.txt --a Wang2015 \
 	--l ${SUBJECTS_DIR}/fsaverage/label/Wang2015/${hemi}.Wang2015.V1v.label \
 	--l ${SUBJECTS_DIR}/fsaverage/label/Wang2015/${hemi}.Wang2015.V1d.label \
 	--l ${SUBJECTS_DIR}/fsaverage/label/Wang2015/${hemi}.Wang2015.V2v.label \
@@ -61,6 +61,8 @@ done
 
 fi
 
+exit 1
+
 # Load glasser2016.mgz and a colorLUT to extract labels in fsaverage space. Convert all labels into an annotation file
 if [ "$DO_IMPORT_GLASSER" == 1 ]; then
 
@@ -78,7 +80,7 @@ for hemi in lh rh; do
 		labelString="${labelString}${fileString}"
 	done; 
 
-	mris_label2annot --s fsaverage --h ${hemi} --ctab ${SUBJECTS_DIR}/atlasmgz/Glasser2016_ColorLUT.txt --a Glasser2016 \
+	mris_label2annot --s fsaverage --h ${hemi} --ctab ${SUBJECTS_DIR}/fsaverage/atlasmgz/Glasser2016_ColorLUT.txt --a Glasser2016 \
 	${labelString}
 done
 
