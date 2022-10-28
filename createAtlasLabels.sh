@@ -1,6 +1,6 @@
 #!/bin/bash -l
 # IB 28/10/2022
-
+# example to run sh createAtlasLabels.sh wlsubj121 nyu3t01 /Volumes/server/Projects/Retinotopy_NYU_3T
 export SUBJID=${1}
 export SESS=${2}
 export WORK_DIR=${3} # e.g /CBI/Users/jankurzawski/data/Retinotopy_NYU_3T
@@ -87,15 +87,15 @@ fi
 
 if [ "$DO_IMPORT_BENSON" == 1 ]; then
 
-	mkdir ${SUBJECTS_DIR}/${SUBJID}/surf/benson14
+	mkdir ${SUBJECTS_DIR}/sub-${SUBJID}/surf/benson14
 	export PARAMS=("benson14_varea.v4_0" "benson14_eccen.v4_0" "benson14_angle.v4_0" "benson14_sigma.v4_0") 
 
 	for P in "${PARAMS[@]}"
 
 	do
 
-		mri_surf2surf --srcsubject fsaverage --trgsubject $SUBJID --hemi rh --sval ${SUBJECTS_DIR}/fsaverage/atlasmgz/rh.${P}.mgz --tval ${SUBJECTS_DIR}/${SUBJID}/surf/benson14/rh.${P}.mgz
-		mri_surf2surf --srcsubject fsaverage --trgsubject $SUBJID --hemi lh --sval ${SUBJECTS_DIR}/fsaverage/atlasmgz/lh.${P}.mgz --tval ${SUBJECTS_DIR}/${SUBJID}/surf/benson14/lh.${P}.mgz
+		mri_surf2surf --srcsubject fsaverage --trgsubject sub-$SUBJID --hemi rh --sval ${SUBJECTS_DIR}/fsaverage/atlasmgz/rh.${P}.mgz --tval ${SUBJECTS_DIR}/sub-${SUBJID}/surf/benson14/rh.${P}.mgz
+		mri_surf2surf --srcsubject fsaverage --trgsubject sub-$SUBJID --hemi lh --sval ${SUBJECTS_DIR}/fsaverage/atlasmgz/lh.${P}.mgz --tval ${SUBJECTS_DIR}/sub-${SUBJID}/surf/benson14/lh.${P}.mgz
 
 	done
 
