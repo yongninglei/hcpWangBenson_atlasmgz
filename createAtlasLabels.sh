@@ -61,7 +61,6 @@ done
 
 fi
 
-exit 1
 
 # Load glasser2016.mgz and a colorLUT to extract labels in fsaverage space. Convert all labels into an annotation file
 if [ "$DO_IMPORT_GLASSER" == 1 ]; then
