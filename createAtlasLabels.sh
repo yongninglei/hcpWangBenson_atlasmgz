@@ -1,9 +1,8 @@
 #!/bin/bash -l
 # IB 28/10/2022
-# example to run sh createAtlasLabels.sh wlsubj121 nyu3t01 /Volumes/server/Projects/Retinotopy_NYU_3T
+# example to run sh createAtlasLabels.sh wlsubj121 /Volumes/server/Projects/Retinotopy_NYU_3T
 export SUBJID=${1}
-export SESS=${2}
-export WORK_DIR=${3} # e.g /CBI/Users/jankurzawski/data/Retinotopy_NYU_3T
+export WORK_DIR=${2} # e.g /CBI/Users/jankurzawski/data/Retinotopy_NYU_3T
 export SUBJECTS_DIR=${WORK_DIR}/derivatives/freesurfer
 export LABEL_DIR=${SUBJECTS_DIR}/sub-${SUBJID}/label
 
