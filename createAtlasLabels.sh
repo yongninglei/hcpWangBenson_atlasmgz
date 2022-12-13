@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# IB 28/10/2022
+# JK & IB 28/10/2022
 # example to run sh createAtlasLabels.sh wlsubj121 /Volumes/server/Projects/Retinotopy_NYU_3T
 export SUBJID=${1}
 export WORK_DIR=${2} # e.g /CBI/Users/jankurzawski/data/Retinotopy_NYU_3T
